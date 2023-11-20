@@ -170,7 +170,7 @@ const deleteProblem = async (req, res) => {
 };
 
 const postComment = async (req, res) => {
-  const { comment, imgurl } = req.body;
+  const { comment, imgUrl } = req.body;
   const { id } = req.params;
   try {
     const problemExist = await knex("problems").where({ id }).first();
@@ -182,7 +182,7 @@ const postComment = async (req, res) => {
     const newComment = await knex("comments")
       .insert({
         comment,
-        imgurl,
+        imgUrl,
         user_id: req.user.id,
         problem_id: problemExist.id,
       })
