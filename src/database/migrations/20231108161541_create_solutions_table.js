@@ -3,7 +3,7 @@ exports.up = function (knex) {
     table.increments("id");
     table.integer("price").notNullable();
     table.string("title", 255).notNullable();
-    table.string("imgUrl", 255).notNullable();
+    table.string("imgUrl", 255);
     table.integer("problem_id").notNullable();
     table.foreign("problem_id").references("problems.id");
     table.string("description").notNullable();

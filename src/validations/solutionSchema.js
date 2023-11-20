@@ -11,9 +11,9 @@ const createSolutionSchema = Joi.object({
     "string.base": "Description should be a string",
     "string.empty": "Description is empty",
   }),
-  img_url: Joi.string().trim().messages({
-    "string.base": "img_url should be a string",
-    "string.empty": "img_url is empty",
+  imgUrl: Joi.string().trim().messages({
+    "string.base": "imgUrl should be a string",
+    "string.empty": "imgUrl is empty",
   }),
   price: Joi.number().required().positive().messages({
     "any.required": "Price is required",
@@ -32,9 +32,9 @@ const updateSolutionSchema = Joi.object({
     "string.base": "Description should be a string",
     "string.empty": "Description is empty",
   }),
-  img_url: Joi.string().trim().messages({
-    "string.base": "img_url should be a string",
-    "string.empty": "img_url is empty",
+  imgUrl: Joi.string().trim().messages({
+    "string.base": "imgUrl should be a string",
+    "string.empty": "imgUrl is empty",
   }),
   price: Joi.number().positive().messages({
     "number.base": "Price should be a number",
