@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const knex = require("../conexao");
+const knex = require("../database");
 
 const tokenValidation = async (req, res, next) => {
   const { authorization } = req.headers;

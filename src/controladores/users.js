@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const knex = require("../conexao");
+const knex = require("../database");
 const bcrypt = require("bcrypt");
 
 const createUser = async (req, res) => {

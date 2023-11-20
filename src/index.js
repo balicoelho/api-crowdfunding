@@ -14,4 +14,4 @@ app.use(rotasUser);
 app.use(rotasProblem);
 app.use(rotasSolution);
 
-app.listen(8000, () => console.log("Servidor iniciado"));
+app.listen(process.env.PORT, () => console.log("Servidor iniciado"));

@@ -1,4 +1,4 @@
-const knex = require("../conexao");
+const knex = require("../database");
 
 const createSolution = async (req, res) => {
   let solution = req.body;
