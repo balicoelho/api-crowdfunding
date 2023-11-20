@@ -44,15 +44,15 @@ const createProblemSchema = Joi.object({
     "string.empty": "Pix is empty",
   }),
   deadline: Joi.date()
-    .format("DD/MM/YYYY")
+    .format("MM/DD/YYYY")
     .utc()
     .min("now")
     .max(maxDeadline)
     .messages({
       "any.required": "Deadline is required",
-      "date.base": "Deadline is invalid, DD/MM/YYYY",
+      "date.base": "Deadline is invalid, MM/DD/YYYY",
       "date.min": "Deadline must be a future date",
-      "date.format": "Deadline is invalid, DD/MM/YYYY",
+      "date.format": "Deadline is invalid, MM/DD/YYYY",
       "date.max": "Deadline must maximum 30 days from now",
     }),
 });
@@ -93,15 +93,15 @@ const updateProblemSchema = Joi.object({
     "string.empty": "Pix is empty",
   }),
   deadline: Joi.date()
-    .format("DD/MM/YYYY")
+    .format("MM/DD/YYYY")
     .utc()
     .min("now")
     .max(maxDeadline)
     .messages({
       "any.required": "Deadline is required",
-      "date.base": "Deadline is invalid, DD/MM/YYYY",
+      "date.base": "Deadline is invalid, MM/DD/YYYY",
       "date.min": "Deadline must be a future date",
-      "date.format": "Deadline is invalid, DD/MM/YYYY",
+      "date.format": "Deadline is invalid, MM/DD/YYYY",
       "date.max": "Deadline must maximum 30 days from now",
     }),
 });

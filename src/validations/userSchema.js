@@ -55,15 +55,15 @@ const createUserSchema = Joi.object({
     "string.empty": "Fullname is empty",
   }),
   birthdate: Joi.date()
-    .format("DD/MM/YYYY")
+    .format("MM/DD/YYYY")
     .utc()
     .max("now")
     .required()
     .messages({
       "any.required": "Birthdate is required",
-      "date.base": "Birthdate is invalid, DD/MM/YYYY",
+      "date.base": "Birthdate is invalid, MM/DD/YYYY",
       "date.max": "Birthdate can´t be more than today",
-      "date.format": "Birthdate is invalid, DD/MM/YYYY",
+      "date.format": "Birthdate is invalid, MM/DD/YYYY",
     }),
   cellphone: Joi.string()
     .required()
