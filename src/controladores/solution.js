@@ -81,12 +81,12 @@ const deleteSolution = async (req, res) => {
 const createVote = async (req, res) => {
   const { id } = req.params;
   try {
-    const solutionExist = await knex("solution").where({ id }).first();
+    const solutionExist = await knex("solutions").where({ id }).first();
     if (!solutionExist) {
       return res.status(404).json({ message: "Solution not found" });
     }
 
-    await knex("votes").insert({ user_id: req.user.id, solution_id: id });
+    await knex("votes").insert({ user_id: req.user.id, solutions_id: id });
     return res.status(404).json({ message: "Solution voted with success" });
   } catch (error) {
     return res.status(500).json(error.message);
