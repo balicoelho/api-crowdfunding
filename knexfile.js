@@ -3,10 +3,10 @@ module.exports = {
   development: {
     client: "pg",
     connection: {
-      host: "localhost",
-      user: "postgres",
-      password: "oregon",
-      database: "crowdfunding",
+      host: process.env.DBLOCAL_HOST,
+      user: process.env.USER,
+      password: process.env.DBLOCAL_PASSWORD,
+      database: process.env.DBLOCAL_DATABASE,
     },
     pool: {
       min: 2,
