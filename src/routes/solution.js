@@ -5,6 +5,7 @@ const {
   getSolution,
   updateSolution,
   deleteSolution,
+  createVote,
 } = require("../controladores/solution");
 const inputValidation = require("../middlewares/inputValidation");
 const {
@@ -16,6 +17,7 @@ const rotas = express();
 
 rotas.use(tokenValidation);
 
+rotas.post("/solution/:id/vote", createVote);
 rotas.post(
   "/solution/:problem_id",
   inputValidation(createSolutionSchema),
