@@ -25,6 +25,7 @@
     "mongoose": "^8.0.0",
     "pg": "^8.11.3",
     "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-dist": "^5.10.3",
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
