@@ -1,0 +1,685 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Crowdfunding",
+    "description": "Documentação da API para o projeto Crowdfunding",
+    "contact": { "email": "balicoelho@gmail.com" },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "api de teste"
+    },
+    {
+      "url": "https://api-crowdfunding.vercel.app/",
+      "description": "api de produção"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "description": "Cria um novo usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserRequest"
+              },
+              "examples": {
+                "CreateUserRequest": {
+                  "value": {
+                    "email": "user@example.com",
+                    "password": "P@ssw0rd",
+                    "fullname": "John Doe",
+                    "birthdate": "01/01/2000",
+                    "cellphone": "1234567890"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login",
+        "description": "Autentica um usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "E-mail do usuário",
+                    "example": "john@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "pattern": "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[.,!@#$%^&*()\\-_+=])[A-Za-z0-9.,!@#$%^&*()\\-_+=]{4,30}",
+                    "description": "Senha do usuário",
+                    "example": "P@ssw0rd"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/updatepassword/{id}": {
+      "post": {
+        "description": "Atualiza a senha de um usuário",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do usuário"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required": true,
+                    "example": "user@example.com",
+                    "format": "email",
+                    "description": "E-mail do usuário"
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true,
+                    "example": "NewP@ssw0rd",
+                    "pattern": "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[.,!@#$%^&*()\\-_+=])[A-Za-z0-9.,!@#$%^&*()\\-_+=]{4,30}",
+                    "description": "Nova senha do usuário"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "description": "Cria um novo problema",
+        "tags": ["Problems"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Invista na minha startup",
+                    "description": "Titulo do problema"
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Estou abrindo uma empresa de venda de limonadas",
+                    "description": "Descrição do problema"
+                  },
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "city": {
+                        "type": "string"
+                      },
+                      "uf": {
+                        "type": "string"
+                      },
+                      "neighborhood": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["city", "uf", "neighborhood"],
+                    "example": {
+                      "city": "Recife",
+                      "uf": "PE",
+                      "neighborhood": "Boa Viagem"
+                    },
+                    "description": "Objeto com as informações da cidade, UF e Bairro"
+                  },
+                  "imgUrl": {
+                    "type": "string",
+                    "required": true,
+                    "example": "http://imagem.com/limonade",
+                    "description": "Link da imagem pra upload"
+                  },
+                  "deadline": {
+                    "type": "string",
+                    "required": false,
+                    "example": "01/01/2023",
+                    "format": "MM/DD/YYYY",
+                    "description": "Data com o deadline da arrecadação"
+                  },
+                  "pix": {
+                    "type": "string",
+                    "required": true,
+                    "example": "123456789",
+                    "description": "Informação do PIX para receber as arrecadações"
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "Obtém a lista de todos os problemas",
+        "tags": ["Problems"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "get": {
+        "description": "Obtém detalhes de um problema específico",
+        "tags": ["Problems"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "Atualiza um problema específico",
+        "tags": ["Problems"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "Exclui um problema específico",
+        "tags": ["Problems"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/{id}/solutions": {
+      "get": {
+        "description": "Obtém soluções para um problema específico",
+        "tags": ["Problems"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/{id}/comment": {
+      "post": {
+        "description": "Adiciona um comentário a um problema específico",
+        "tags": ["Problems"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "comment": {
+                  "example": "any"
+                },
+                "imgUrl": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/{id}/comment/{id_comment}": {
+      "delete": {
+        "description": "Exclui um comentário específico de um problema",
+        "tags": ["Problems"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id_comment",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/solution/{id}/vote": {
+      "post": {
+        "description": "Votar em uma solução",
+        "tags": ["Solutions"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID da solução a ser votada",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Solution not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/solution/{problem_id}": {
+      "post": {
+        "description": "Criar uma nova solução",
+        "tags": ["Solutions"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "problem_id",
+            "required": true,
+            "description": "ID do problema associado à solução",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Solution"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/solution/{id}": {
+      "get": {
+        "description": "Obter uma solução pelo ID",
+        "tags": ["Solutions"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID da solução a ser obtida",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Solution not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "Atualizar uma solução pelo ID",
+        "tags": ["Solutions"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID da solução a ser atualizada",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Solution"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Solution not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletar uma solução pelo ID",
+        "tags": ["Solutions"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID da solução a ser deletada",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Solution not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateUserRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "E-mail do usuário"
+          },
+          "password": {
+            "type": "string",
+            "pattern": "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[.,!@#$%^&*()\\-_+=])[A-Za-z0-9.,!@#$%^&*()\\-_+=]{4,30}",
+            "description": "Senha do usuário"
+          },
+          "fullname": {
+            "type": "string",
+            "description": "Nome completo do usuário"
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "MM/DD/YYYY",
+            "description": "Data de nascimento do usuário (MM/DD/YYYY)"
+          },
+          "cellphone": {
+            "type": "string",
+            "pattern": "^[ds-()]{10,}$",
+            "description": "Número de telefone do usuário"
+          }
+        }
+      },
+      "Solution": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "imgUrl": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        },
+        "required": ["title", "description", "imgUrl", "price"]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
