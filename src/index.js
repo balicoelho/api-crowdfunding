@@ -1,6 +1,6 @@
 const express = require("express");
-const swaggerUi = require("swagger-ui-express");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
 const rotasUser = require("./routes/user");
 const rotasProblem = require("./routes/problem");

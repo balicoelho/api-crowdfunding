@@ -1,6 +1,7 @@
 # Crowdfunding API - README
 
 **[Live Demo](https://api-crowdfunding.vercel.app/)**
+**[Live Demo Swagger](https://api-crowdfunding.vercel.app/doc)**
 
 Este é o README detalhado para a API Crowdfunding, um projeto que gerencia problemas e soluções, permitindo aos usuários criar, visualizar, atualizar e excluir problemas, além de comentar e votar em soluções propostas.
 
