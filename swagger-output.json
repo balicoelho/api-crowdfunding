@@ -20,7 +20,7 @@
     "/register": {
       "post": {
         "description": "Cria um novo usuário",
-        "tags": ["Users"],
+        "tags": ["Users", "http"],
         "requestBody": {
           "required": true,
           "content": {
@@ -59,7 +59,7 @@
       "post": {
         "summary": "Login",
         "description": "Autentica um usuário",
-        "tags": ["Users"],
+        "tags": ["Users", "http"],
         "requestBody": {
           "required": true,
           "content": {
@@ -103,7 +103,7 @@
     "/updatepassword/{id}": {
       "post": {
         "description": "Atualiza a senha de um usuário",
-        "tags": ["Users"],
+        "tags": ["Users", "http"],
         "parameters": [
           {
             "name": "id",
@@ -157,7 +157,7 @@
     "/": {
       "post": {
         "description": "Cria um novo problema",
-        "tags": ["Problems"],
+        "tags": ["Problems", "http"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "required": true,
@@ -241,7 +241,7 @@
       },
       "get": {
         "description": "Obtém a lista de todos os problemas",
-        "tags": ["Problems"],
+        "tags": ["Problems", "http"],
         "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
@@ -259,7 +259,7 @@
     "/{id}": {
       "get": {
         "description": "Obtém detalhes de um problema específico",
-        "tags": ["Problems"],
+        "tags": ["Problems", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -286,7 +286,7 @@
       },
       "put": {
         "description": "Atualiza um problema específico",
-        "tags": ["Problems"],
+        "tags": ["Problems", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -328,7 +328,7 @@
       },
       "delete": {
         "description": "Exclui um problema específico",
-        "tags": ["Problems"],
+        "tags": ["Problems", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -357,7 +357,7 @@
     "/{id}/solutions": {
       "get": {
         "description": "Obtém soluções para um problema específico",
-        "tags": ["Problems"],
+        "tags": ["Problems", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -386,7 +386,7 @@
     "/{id}/comment": {
       "post": {
         "description": "Adiciona um comentário a um problema específico",
-        "tags": ["Problems"],
+        "tags": ["Problems", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -430,7 +430,7 @@
     "/{id}/comment/{id_comment}": {
       "delete": {
         "description": "Exclui um comentário específico de um problema",
-        "tags": ["Problems"],
+        "tags": ["Problems", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -465,7 +465,7 @@
     "/solution/{id}/vote": {
       "post": {
         "description": "Votar em uma solução",
-        "tags": ["Solutions"],
+        "tags": ["Solutions", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -491,7 +491,7 @@
     "/solution/{problem_id}": {
       "post": {
         "description": "Criar uma nova solução",
-        "tags": ["Solutions"],
+        "tags": ["Solutions", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -533,7 +533,7 @@
     "/solution/{id}": {
       "get": {
         "description": "Obter uma solução pelo ID",
-        "tags": ["Solutions"],
+        "tags": ["Solutions", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -560,7 +560,7 @@
       },
       "put": {
         "description": "Atualizar uma solução pelo ID",
-        "tags": ["Solutions"],
+        "tags": ["Solutions", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -597,7 +597,7 @@
       },
       "delete": {
         "description": "Deletar uma solução pelo ID",
-        "tags": ["Solutions"],
+        "tags": ["Solutions", "http"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
